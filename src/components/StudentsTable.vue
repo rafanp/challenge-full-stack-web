@@ -13,17 +13,18 @@ export default {
   props: {
     students: Array,
   },
+
   data: () => ({
     headers: [
       {
         text: "Registro Acadêmico",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "ra",
       },
-      { text: "Nome", value: "calories" },
-      { text: "CPF", value: "fat" },
-      { text: "Ações", value: "carbs" },
+      { text: "Nome", value: "name" },
+      { text: "Email", value: "email" },
+      { text: "CPF", value: "cpf" },
     ],
   }),
 };
