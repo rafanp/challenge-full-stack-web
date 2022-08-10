@@ -68,7 +68,11 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {},
+      "node": {
+        "paths":  ["./src"],
+        "extensions": [".js", ".ts", ".d.ts", ".tsx"]
+    },
     }
   }
 }
