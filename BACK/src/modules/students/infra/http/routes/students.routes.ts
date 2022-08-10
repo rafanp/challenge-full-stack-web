@@ -1,24 +1,19 @@
 import { Router } from 'express';
 import { CreateStudentController } from '@modules/students/useCases/createStudent';
+import { ListStudentsController } from '@modules/students/useCases/listStudents';
 
-// import { CreateMemberController } from 'modules/families/useCases/createMember';
-// import { DeleteMemberController } from 'modules/families/useCases/deleteMember';
-// import { FindMemberByIdController } from 'modules/families/useCases/findMemberById/FindMemberByIdController';
-// import { ListMembersController } from 'modules/families/useCases/listMembers';
-// import { UpdateMemberController } from 'modules/families/useCases/updateMember';
-
-const createMemberController = new CreateStudentController();
-// const deleteMemberController = new DeleteMemberController();
-// const listMembersController = new ListMembersController();
-// const findMemberByIdController = new FindMemberByIdController();
-// const updateMemberController = new UpdateMemberController();
+const createStudentController = new CreateStudentController();
+// const deleteStudentController = new DeleteStudentController();
+const listStudentsController = new ListStudentsController();
+// const findStudentByIdController = new FindStudentByIdController();
+// const updateStudentController = new UpdateStudentController();
 
 const studentsRoutes = Router();
 
-studentsRoutes.post('/', createMemberController.handle);
-// studentsRoutes.patch('/:id', updateMemberController.handle);
-// studentsRoutes.get('/', listMembersController.handle);
-// studentsRoutes.get('/:id', findMemberByIdController.handle);
-// studentsRoutes.delete('/:id', deleteMemberController.handle);
+studentsRoutes.post('/', createStudentController.handle);
+// studentsRoutes.patch('/:id', updateStudentController.handle);
+studentsRoutes.get('/', listStudentsController.handle);
+// studentsRoutes.get('/:id', findStudentByIdController.handle);
+// studentsRoutes.delete('/:id', deleteStudentController.handle);
 
 export { studentsRoutes };
