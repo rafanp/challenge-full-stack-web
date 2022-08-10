@@ -61,6 +61,8 @@
           </v-list-item-icon>
           <v-list-item-title>My Files</v-list-item-title>
         </v-list-item>
+        <router-link to="/">Home</router-link>
+        <router-link to="/students">Students</router-link>
         <v-list-item link>
           <v-list-item-icon>
             <v-icon>mdi-account-multiple</v-icon>
@@ -76,39 +78,30 @@
       </v-list>
     </v-navigation-drawer>
     <v-main>
-      <HelloWorld :students="students" />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld";
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: "App",
+nav {
+  padding: 30px;
 
-  components: {
-    HelloWorld,
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  mounted() {
-    this.getStudents();
-  },
-
-  methods: {
-    async getStudents() {
-      try {
-        const response = await fetch("http://localhost:3333/students");
-        const data = await response.json();
-        this.students = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-
-  data: () => ({
-    students: [],
-  }),
-};
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
