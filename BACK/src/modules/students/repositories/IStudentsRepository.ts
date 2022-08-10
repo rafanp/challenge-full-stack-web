@@ -1,5 +1,4 @@
-// import { ICreateMemberDTO, IListAllMembersOptionsDTO, IUpdateMemberDTO } from '../dtos';
-import { ICreateStudentDTO } from '../dtos';
+import { ICreateStudentDTO, IUpdateStudentDTO } from '../dtos';
 import { Student } from '../entities';
 
 interface IStudentsRepository {
@@ -9,7 +8,7 @@ interface IStudentsRepository {
   deleteById(id: string): Promise<void>;
   // findById(id: string): Promise<Student | undefined>;
   // findByFamilyId(id: string): Promise<Student[]>;
-  // updateById(id: string, newData: IUpdateStudentDTO): Promise<void>;
+  updateById(id: string, newData: IUpdateStudentDTO): Promise<void>;
 }
 
 export { IStudentsRepository };

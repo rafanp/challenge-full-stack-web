@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import { IStudentsRepository } from 'modules/students/repositories';
-import { ICreateStudentDTO } from 'modules/students/dtos';
+import { ICreateStudentDTO, IUpdateStudentDTO } from 'modules/students/dtos';
 import { Student } from 'modules/students/entities';
 
 class StudentsRepository implements IStudentsRepository {
@@ -32,25 +32,15 @@ class StudentsRepository implements IStudentsRepository {
     return member;
   }
 
-  // async findByFamilyId(id: string): Promise<Student[]> {
-  //   const members = await this.ormRepository.find({ family_id: id });
-  //   return members;
-  // }
-
   async list(): Promise<Student[]> {
     const members = await this.ormRepository.find();
 
     return members;
   }
 
-  // async updateById(id: string, newData: IUpdateStudentDTO): Promise<void> {
-  //   await this.ormRepository.update(id, newData);
-  // }
-  // async findByName(name: string): Promise<Student | undefined> {
-  //   const member = await this.ormRepository.findOne({ name });
-
-  //   return member;
-  // }
+  async updateById(id: string, newData: IUpdateStudentDTO): Promise<void> {
+    await this.ormRepository.update(id, newData);
+  }
 }
 
 export { StudentsRepository };
