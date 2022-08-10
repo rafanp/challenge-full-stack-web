@@ -1,0 +1,338 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "academic Documentation",
+    "description": "This is a API academic",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/students": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "summary": "List All Students",
+        "description": "List All Students",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Database"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Student"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Students"
+        ],
+        "summary": "Create a new Student",
+        "description": "Create a new Student",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Student"
+                  },
+                  {
+                    "required": [
+                      "name"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Student"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Database"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/{id}": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "summary": "Get a Student",
+        "description": "Get a Student",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Student"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Database"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Students"
+        ],
+        "summary": "Delete a Student",
+        "description": "Delete a Student",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Student is not registered"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Students"
+        ],
+        "summary": "Update a Student",
+        "description": "Update a Student",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/studentRequestBody"
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Student is not registered"
+          }
+        }
+      }
+    },
+    "/familes": {
+      "get": {
+        "tags": [
+          "Families"
+        ],
+        "summary": "List All Families",
+        "description": "List All Families",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Database"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Family"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Families"
+        ],
+        "summary": "Create a new Family",
+        "description": "Create a new Family",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Family"
+                  },
+                  {
+                    "required": [
+                      "name"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Family"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Database"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "description": "Should be a ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "offsetParam": {
+        "name": "offset",
+        "in": "query",
+        "description": "Number of items to skip before returning the results.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "default": 0
+        }
+      }
+    },
+    "requestBodies": {
+      "studentRequestBody": {
+        "description": "Student JSON",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Student": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "boolean"
+          },
+          "cpf": {
+            "type": "boolean"
+          },
+          "ra": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Rafael",
+          "email": "rafael@email.com",
+          "cpf": "999.999.999-99",
+          "ra": "123123"
+        }
+      },
+      "ID": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "b722459e-4c6c-43a6-8c92-e03bf184f7b9"
+        }
+      },
+      "CreatedAt": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "created_at": "2022-04-29T00:03:01.041Z"
+        }
+      },
+      "Database": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ID"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedAt"
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
