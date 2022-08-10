@@ -8,11 +8,11 @@ class FindStudentByIdController {
 
     const findStudentByIdUseCase = container.resolve(FindStudentByIdUseCase);
 
-    const member = await findStudentByIdUseCase.execute({
+    const student = await findStudentByIdUseCase.execute({
       id,
     });
 
-    return res.status(201).json(member);
+    return res.status(201).json(student);
   }
 }
 

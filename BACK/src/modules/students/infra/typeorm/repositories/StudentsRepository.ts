@@ -23,9 +23,9 @@ class StudentsRepository implements IStudentsRepository {
     return student;
   }
 
-  // async deleteById(id: string): Promise<void> {
-  //   await this.ormRepository.delete(id);
-  // }
+  async deleteById(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 
   async findById(id: string): Promise<Student | undefined> {
     const member = await this.ormRepository.findOne({ id });
