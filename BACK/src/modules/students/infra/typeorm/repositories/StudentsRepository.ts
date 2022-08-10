@@ -27,12 +27,12 @@ class StudentsRepository implements IStudentsRepository {
   //   await this.ormRepository.delete(id);
   // }
 
-  // async findById(id: string): Promise<Member | undefined> {
-  //   const member = await this.ormRepository.findOne({ id });
-  //   return member;
-  // }
+  async findById(id: string): Promise<Student | undefined> {
+    const member = await this.ormRepository.findOne({ id });
+    return member;
+  }
 
-  // async findByFamilyId(id: string): Promise<Member[]> {
+  // async findByFamilyId(id: string): Promise<Student[]> {
   //   const members = await this.ormRepository.find({ family_id: id });
   //   return members;
   // }
@@ -43,10 +43,10 @@ class StudentsRepository implements IStudentsRepository {
     return members;
   }
 
-  // async updateById(id: string, newData: IUpdateMemberDTO): Promise<void> {
+  // async updateById(id: string, newData: IUpdateStudentDTO): Promise<void> {
   //   await this.ormRepository.update(id, newData);
   // }
-  // async findByName(name: string): Promise<Member | undefined> {
+  // async findByName(name: string): Promise<Student | undefined> {
   //   const member = await this.ormRepository.findOne({ name });
 
   //   return member;
