@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card class="pa-4">
@@ -11,17 +10,19 @@
             v-model="student.name"
             :error-messages="errors"
             label="Nome *"
-            required
             outlined
           ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-slot="{ errors }" name="email" rules="required">
+        <validation-provider
+          v-slot="{ errors }"
+          name="email"
+          rules="required|email"
+        >
           <v-text-field
             v-model="student.email"
             :error-messages="errors"
             label="E-mail *"
-            required
             outlined
           ></v-text-field>
         </validation-provider>
@@ -35,36 +36,29 @@
             v-model="student.ra"
             :error-messages="errors"
             label="RA *"
-            required
             outlined
+            :disabled="student.id"
           ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-slot="{ errors }" name="cpf">
+        <validation-provider
+          v-slot="{ errors }"
+          name="cpf"
+          :rules="{
+            required: true,
+            regex:
+              '([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})',
+          }"
+        >
           <v-text-field
             v-model="student.cpf"
             :error-messages="errors"
             label="CPF *"
             required
             outlined
+            :disabled="student.id"
           ></v-text-field>
         </validation-provider>
-
-        <!-- <validation-provider
-        v-slot="{ errors }"
-        name="cpf"
-        :rules="{
-          regex:
-            '([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})',
-        }"
-      >
-        <v-text-field
-          v-model="cpf"
-          :error-messages="errors"
-          label="CPF"
-          required
-        ></v-text-field>
-      </validation-provider> -->
         <div class="d-flex">
           <v-btn class="mr-4" @click="onCancel"> Cancelar </v-btn>
           <v-spacer />
@@ -78,14 +72,7 @@
 </template>
 
 <script>
-import {
-  required,
-  digits,
-  email,
-  max,
-  regex,
-  integer,
-} from "vee-validate/dist/rules";
+import { required, email, regex, integer } from "vee-validate/dist/rules";
 import {
   extend,
   ValidationObserver,
@@ -96,24 +83,14 @@ import { mapGetters } from "vuex";
 
 setInteractionMode("eager");
 
-extend("digits", {
-  ...digits,
-  message: "{_field_} needs to be {length} digits. ({_value_})",
-});
-
 extend("required", {
   ...required,
   message: "Campo obrigatório",
 });
 
-extend("max", {
-  ...max,
-  message: "{_field_} may not be greater than {length} characters",
-});
-
 extend("regex", {
   ...regex,
-  message: "Valor inválido",
+  message: "CPF inválido. Deve conter números e pontuação, ex: 999.999.999-99",
 });
 
 extend("email", {
@@ -178,13 +155,5 @@ form {
 
 .form-title {
   font-size: 16px;
-}
-
-.error-message {
-  color: #d33c40;
-}
-
-.success-message {
-  color: #32a95d;
 }
 </style>
