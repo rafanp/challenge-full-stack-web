@@ -22,10 +22,9 @@ const actions = {
 
   async getStudent({ commit }, { id }) {
     try {
-      const response = studentsService.getById(id);
-      const data = await response.json();
-      commit('setStudent', data);
-      return data;
+      const response = await studentsService.getById(id);
+      commit('setStudent', response);
+      return response;
     } catch (error) {
       console.error(error);
     }

@@ -1,5 +1,8 @@
+const serviceName = 'students';
+const apiUrl = process.env.VUE_APP_API_URL;
+
 const get = async () => {
-  const response = await fetch('http://localhost:3333/students');
+  const response = await fetch(`${apiUrl}/${serviceName}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -9,7 +12,7 @@ const get = async () => {
 };
 
 const getById = async (id) => {
-  const response = await fetch(`http://localhost:3333/students/${id}`);
+  const response = await fetch(`${apiUrl}/${serviceName}/${id}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -19,7 +22,7 @@ const getById = async (id) => {
 };
 
 const deleteItem = async (id) => {
-  const response = await fetch(`http://localhost:3333/students/${id}`, {
+  const response = await fetch(`${apiUrl}/${serviceName}/${id}`, {
     method: 'DELETE',
   });
 
@@ -37,10 +40,7 @@ const post = async (payload) => {
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(
-    'http://localhost:3333/students',
-    requestOptions
-  );
+  const response = await fetch(`${apiUrl}/${serviceName}`, requestOptions);
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -57,7 +57,7 @@ const put = async (payload) => {
   };
 
   const response = await fetch(
-    `http://localhost:3333/students/${payload.id}`,
+    `${apiUrl}/${serviceName}/${payload.id}`,
     requestOptions
   );
 

@@ -4,7 +4,7 @@
       <v-list-item-avatar>
         <v-img src="@/assets/grupoa-logo.png" />
       </v-list-item-avatar>
-      <spacer />
+      <v-spacer />
       <div>
         <h4>Grupo A</h4>
         <span>Módulo Acadêmico</span>
