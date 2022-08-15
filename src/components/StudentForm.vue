@@ -146,6 +146,7 @@ export default {
           ? await this.updateStudent({ payload: this.student })
           : await this.createStudent({ payload: this.student });
 
+        this.$store.dispatch("clearStudent");
         this.$router.push("/students");
       } catch (error) {
         console.error(error);
@@ -161,6 +162,7 @@ export default {
     },
 
     onCancel() {
+      this.$store.dispatch("clearStudent");
       this.$router.push("/students");
     },
   },
@@ -172,15 +174,7 @@ form {
   margin-bottom: 2rem;
   padding-left: 10%;
   padding-right: 10%;
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 }
-
-/* [class*="-message"] {
-  font-weight: 500;
-} */
 
 .form-title {
   font-size: 16px;

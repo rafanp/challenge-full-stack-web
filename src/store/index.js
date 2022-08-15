@@ -94,6 +94,10 @@ const actions = {
       throw new Error(error);
     }
   },
+
+  async clearStudent({ commit }) {
+    commit('setStudent', {});
+  },
 };
 
 const mutations = {

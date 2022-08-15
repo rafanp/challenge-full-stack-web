@@ -23,8 +23,6 @@
         </v-list-item>
       </router-link>
 
-      <!-- <router-link to="/">Home</router-link> -->
-      <!-- <router-link to="/students">Students</router-link> -->
       <router-link to="/students" tag="button">
         <v-list-item link>
           <v-list-item-icon>
