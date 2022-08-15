@@ -6,8 +6,6 @@
       <v-btn elevation="2">Cadastrar aluno</v-btn>
     </v-row>
 
-    <StudentsTable :students="students" />
-
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -82,16 +80,12 @@
 </template>
 
 <script>
-import StudentsTable from "./StudentsTable";
-
 export default {
   name: "HelloWorld",
   props: {
     students: Array,
   },
-  components: {
-    StudentsTable,
-  },
+  components: {},
 
   data: () => ({
     ecosystem: [

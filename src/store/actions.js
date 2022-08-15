@@ -17,7 +17,6 @@ const actions = {
       });
       console.log(response);
       return response;
-      // this.getStudents();
     } catch (error) {
       console.error(error);
     }

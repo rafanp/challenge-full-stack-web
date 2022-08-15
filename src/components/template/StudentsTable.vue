@@ -1,9 +1,10 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="header"
     :items="students"
     :items-per-page="10"
+    :search="search"
     :footer-props="{
       showFirstLastPage: true,
       'items-per-page-text': 'Linhas por página',
@@ -17,7 +18,12 @@
 
     <template v-slot:top>
       <v-toolbar flat>
-        <v-text-field v-model="search" label="Pesquisar" class="mt-4" />
+        <v-text-field
+          v-model="search"
+          label="Pesquisar"
+          class="mt-4"
+          append-icon="mdi-magnify"
+        />
 
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -47,6 +53,10 @@ export default {
 
   computed: {
     ...mapGetters(["students"]),
+  },
+
+  props: {
+    header: Array,
   },
 
   mounted() {
@@ -83,19 +93,7 @@ export default {
   data: () => ({
     dialogDelete: false,
     selectedId: null,
-
-    headers: [
-      {
-        text: "Registro Acadêmico",
-        align: "start",
-        sortable: false,
-        value: "ra",
-      },
-      { text: "Nome", value: "name" },
-      { text: "Email", value: "email" },
-      { text: "CPF", value: "cpf" },
-      { text: "Ações", value: "actions" },
-    ],
+    search: "",
   }),
 };
 </script>

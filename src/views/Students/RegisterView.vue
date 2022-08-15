@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import StudentForm from "@/components/StudentForm";
+import StudentForm from "@/components/template/StudentForm";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "NewRegisterView",
+  name: "RegisterView",
 
   components: { StudentForm },
   computed: {

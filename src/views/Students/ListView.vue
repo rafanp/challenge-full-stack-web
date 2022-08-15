@@ -11,12 +11,13 @@
       >
     </v-row>
 
-    <StudentsTable />
+    <StudentsTable :header="header" />
   </v-container>
 </template>
 
 <script>
-import StudentsTable from "@/components/StudentsTable.vue";
+import StudentsTable from "@/components/template/StudentsTable";
+import { header } from "./config";
 
 export default {
   name: "StudentView",
@@ -24,6 +25,7 @@ export default {
   components: {
     StudentsTable,
   },
+  data: () => ({ header }),
 };
 </script>
 
