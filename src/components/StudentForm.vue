@@ -1,48 +1,56 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
-    <form @submit.prevent="submit">
-      <validation-provider v-slot="{ errors }" name="name" rules="required">
-        <v-text-field
-          v-model="student.name"
-          :error-messages="errors"
-          label="Nome"
-          required
-        ></v-text-field>
-      </validation-provider>
-
-      <validation-provider v-slot="{ errors }" name="email" rules="required">
-        <v-text-field
-          v-model="student.email"
-          :error-messages="errors"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </validation-provider>
-
-      <validation-provider
-        v-slot="{ errors }"
-        name="ra"
-        rules="required|integer"
+    <v-card class="pa-4">
+      <v-card-title
+        ><span class="form-title">Informações do Estudante</span></v-card-title
       >
-        <v-text-field
-          v-model="student.ra"
-          :error-messages="errors"
-          label="RA"
-          required
-        ></v-text-field>
-      </validation-provider>
+      <form @submit.prevent="submit">
+        <validation-provider v-slot="{ errors }" name="name" rules="required">
+          <v-text-field
+            v-model="student.name"
+            :error-messages="errors"
+            label="Nome *"
+            required
+            outlined
+          ></v-text-field>
+        </validation-provider>
 
-      <validation-provider v-slot="{ errors }" name="cpf">
-        <v-text-field
-          v-model="student.cpf"
-          :error-messages="errors"
-          label="CPF"
-          required
-        ></v-text-field>
-      </validation-provider>
+        <validation-provider v-slot="{ errors }" name="email" rules="required">
+          <v-text-field
+            v-model="student.email"
+            :error-messages="errors"
+            label="E-mail *"
+            required
+            outlined
+          ></v-text-field>
+        </validation-provider>
 
-      <!-- <validation-provider
+        <validation-provider
+          v-slot="{ errors }"
+          name="ra"
+          rules="required|integer"
+        >
+          <v-text-field
+            v-model="student.ra"
+            :error-messages="errors"
+            label="RA *"
+            required
+            outlined
+          ></v-text-field>
+        </validation-provider>
+
+        <validation-provider v-slot="{ errors }" name="cpf">
+          <v-text-field
+            v-model="student.cpf"
+            :error-messages="errors"
+            label="CPF *"
+            required
+            outlined
+          ></v-text-field>
+        </validation-provider>
+
+        <!-- <validation-provider
         v-slot="{ errors }"
         name="cpf"
         :rules="{
@@ -57,10 +65,15 @@
           required
         ></v-text-field>
       </validation-provider> -->
-
-      <v-btn class="mr-4"> Cancelar </v-btn>
-      <v-btn type="submit" :disabled="invalid"> submit </v-btn>
-    </form>
+        <div class="d-flex">
+          <v-btn class="mr-4" @click="onCancel"> Cancelar </v-btn>
+          <v-spacer />
+          <v-btn type="submit" color="primary" :disabled="invalid">
+            Salvar
+          </v-btn>
+        </div>
+      </form>
+    </v-card>
   </validation-observer>
 </template>
 
@@ -118,7 +131,6 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  data: () => ({}),
   computed: {
     ...mapGetters(["student"]),
   },
@@ -147,6 +159,10 @@ export default {
     createStudent(payload) {
       return this.$store.dispatch("createStudent", payload);
     },
+
+    onCancel() {
+      this.$router.push("/students");
+    },
   },
 };
 </script>
@@ -154,10 +170,20 @@ export default {
 <style scoped>
 form {
   margin-bottom: 2rem;
+  padding-left: 10%;
+  padding-right: 10%;
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
-[class*="-message"] {
+/* [class*="-message"] {
   font-weight: 500;
+} */
+
+.form-title {
+  font-size: 16px;
 }
 
 .error-message {

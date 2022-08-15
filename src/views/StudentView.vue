@@ -1,10 +1,13 @@
 <template>
   <v-container>
-    <v-row class="d-flex pa-2">
-      <v-text-field placeholder="Digite sua busca" solo />
-      <v-btn elevation="2">Pesquisar</v-btn>
-      <v-btn elevation="2" @click="() => this.$router.push('/students/new')"
-        >Cadastrar aluno</v-btn
+    <v-row class="d-flex pa-2 mt-6 mb-6">
+      <h2>Estudantes</h2>
+      <v-spacer />
+      <v-btn
+        elevation="2"
+        color="primary"
+        @click="() => this.$router.push('/students/new')"
+        >Adicionar</v-btn
       >
     </v-row>
 
@@ -23,3 +26,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+h2 {
+  color: #15113b;
+}
+</style>
