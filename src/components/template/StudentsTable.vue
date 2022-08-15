@@ -11,7 +11,7 @@
     }"
     class="elevation-1"
   >
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
       <v-icon class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
@@ -33,7 +33,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue darken-1" @click="deleteItemConfirm"
+              <v-btn color="blue darken-1" @click="confirmItemDelete"
                 >Confirmar</v-btn
               >
               <v-spacer></v-spacer>
@@ -69,7 +69,6 @@ export default {
     },
 
     editItem(item) {
-      console.log(item);
       this.$router.push(`/students/${item.id}/edit`);
     },
 
@@ -79,7 +78,7 @@ export default {
       this.dialogDelete = true;
     },
 
-    async deleteItemConfirm() {
+    async confirmItemDelete() {
       await this.$store.dispatch("deleteStudent", { id: this.selectedId });
       this.getStudents();
       this.closeDelete();

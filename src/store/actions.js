@@ -1,9 +1,11 @@
+import studentsService from '@/services/students';
+
 const actions = {
   async getStudents({ commit }) {
     try {
-      const response = await fetch('http://localhost:3333/students');
-      const data = await response.json();
-      commit('setStudents', data);
+      const response = await studentsService.get();
+      commit('setStudents', response);
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -12,11 +14,7 @@ const actions = {
   async deleteStudent({ commit }, { id }) {
     console.log('commit', commit);
     try {
-      const response = await fetch(`http://localhost:3333/students/${id}`, {
-        method: 'DELETE',
-      });
-      console.log(response);
-      return response;
+      return studentsService.delete(id);
     } catch (error) {
       console.error(error);
     }
@@ -24,7 +22,7 @@ const actions = {
 
   async getStudent({ commit }, { id }) {
     try {
-      const response = await fetch(`http://localhost:3333/students/${id}`);
+      const response = studentsService.getById(id);
       const data = await response.json();
       commit('setStudent', data);
       return data;
@@ -34,16 +32,7 @@ const actions = {
   },
 
   async createStudent({ commit }, { payload }) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    };
-
-    const response = await fetch(
-      'http://localhost:3333/students',
-      requestOptions
-    );
+    const response = studentsService.post(payload);
     console.log('Commit', commit);
 
     return response;
@@ -51,23 +40,9 @@ const actions = {
 
   async updateStudent({ commit }, { payload }) {
     try {
-      const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      };
-
       console.log('Commit', commit);
 
-      const response = await fetch(
-        `http://localhost:3333/students/${payload.id}`,
-        requestOptions
-      );
-
-      if (response.status === 404) {
-        throw new Error(response.statusText);
-      }
-
+      const response = studentsService.put(payload);
       return response;
     } catch (error) {
       console.log(error);
