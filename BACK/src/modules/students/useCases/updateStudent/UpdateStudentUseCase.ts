@@ -2,14 +2,7 @@ import { IStudentsRepository } from 'modules/students/repositories';
 import { inject, injectable } from 'tsyringe';
 import { IBaseUseCase } from '@shared/useCases';
 import { AppError } from '@shared/errors';
-
-interface IRequest {
-  id: string;
-  name?: string;
-  family_id?: string;
-  attending?: boolean;
-  child?: boolean;
-}
+import { IUpdateStudentDTO } from '@modules/students/dtos';
 
 @injectable()
 class UpdateStudentUseCase implements IBaseUseCase {
@@ -18,16 +11,14 @@ class UpdateStudentUseCase implements IBaseUseCase {
     private studentsRepository: IStudentsRepository,
   ) {}
 
-  async execute(data: IRequest): Promise<void> {
-    const { id, ...updatedParams } = data;
-
-    const student = await this.studentsRepository.findById(id);
+  async execute(data: IUpdateStudentDTO): Promise<void> {
+    const student = await this.studentsRepository.findById(data.id);
 
     if (!student) {
       throw new AppError('student_is_not_registered');
     }
 
-    await this.studentsRepository.updateById(id, updatedParams);
+    await this.studentsRepository.updateById(data.id, data);
   }
 }
 

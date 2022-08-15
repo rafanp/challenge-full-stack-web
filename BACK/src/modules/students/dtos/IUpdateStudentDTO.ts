@@ -1,6 +1,9 @@
 interface IUpdateStudentDTO {
-  name?: string;
-  email?: string;
+  id: string;
+  name: string;
+  email: string;
+  ra: string;
+  cpf: string;
 }
 
 export { IUpdateStudentDTO };
