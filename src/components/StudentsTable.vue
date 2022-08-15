@@ -39,13 +39,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "StudentsTable",
-  props: {
-    students: Array,
+
+  computed: {
+    ...mapGetters(["students"]),
+  },
+
+  mounted() {
+    this.getStudents();
   },
 
   methods: {
+    async getStudents() {
+      this.$store.dispatch("getStudents");
+    },
+
     editItem(item) {
       console.log(item);
       this.$router.push(`/students/${item.id}/edit`);
@@ -57,8 +68,9 @@ export default {
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.$emit("delete:student", this.selectedId);
+    async deleteItemConfirm() {
+      await this.$store.dispatch("deleteStudent", { id: this.selectedId });
+      this.getStudents();
       this.closeDelete();
     },
 

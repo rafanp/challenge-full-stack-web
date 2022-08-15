@@ -58,7 +58,7 @@
         ></v-text-field>
       </validation-provider> -->
 
-      <v-btn class="mr-4" @click="clear"> clear </v-btn>
+      <v-btn class="mr-4"> Cancelar </v-btn>
       <v-btn type="submit" :disabled="invalid"> submit </v-btn>
     </form>
   </validation-observer>
@@ -79,6 +79,7 @@ import {
   ValidationProvider,
   setInteractionMode,
 } from "vee-validate";
+import { mapGetters } from "vuex";
 
 setInteractionMode("eager");
 
@@ -117,25 +118,34 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  props: {
-    student: Object,
-  },
   data: () => ({}),
-
+  computed: {
+    ...mapGetters(["student"]),
+  },
   methods: {
     async submit() {
       const isValidated = await this.$refs.observer.validate();
+      if (!isValidated) {
+        return;
+      }
 
-      if (isValidated) {
-        this.$emit("add:student", this.student);
+      try {
+        this.student.id
+          ? await this.updateStudent({ payload: this.student })
+          : await this.createStudent({ payload: this.student });
+
+        this.$router.push("/students");
+      } catch (error) {
+        console.error(error);
       }
     },
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.cpf = "";
-      this.ra = "";
-      this.$refs.observer.reset();
+
+    updateStudent(payload) {
+      return this.$store.dispatch("updateStudent", payload);
+    },
+
+    createStudent(payload) {
+      return this.$store.dispatch("createStudent", payload);
     },
   },
 };

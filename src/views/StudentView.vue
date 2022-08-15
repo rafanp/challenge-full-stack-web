@@ -8,7 +8,7 @@
       >
     </v-row>
 
-    <StudentsTable :students="students" @delete:student="deleteStudent" />
+    <StudentsTable />
   </v-container>
 </template>
 
@@ -21,38 +21,5 @@ export default {
   components: {
     StudentsTable,
   },
-
-  mounted() {
-    this.getStudents();
-  },
-
-  methods: {
-    async getStudents() {
-      try {
-        const response = await fetch("http://localhost:3333/students");
-        const data = await response.json();
-        this.students = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
-    async deleteStudent(id) {
-      console.log("delete", id);
-      try {
-        const response = await fetch(`http://localhost:3333/students/${id}`, {
-          method: "DELETE",
-        });
-        console.log(response);
-        this.getStudents();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-
-  data: () => ({
-    students: [],
-  }),
 };
 </script>
