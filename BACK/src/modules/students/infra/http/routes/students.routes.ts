@@ -14,7 +14,7 @@ const updateStudentController = new UpdateStudentController();
 const studentsRoutes = Router();
 
 studentsRoutes.post('/', createStudentController.handle);
-studentsRoutes.patch('/:id', updateStudentController.handle);
+studentsRoutes.put('/:id', updateStudentController.handle);
 studentsRoutes.get('/', listStudentsController.handle);
 studentsRoutes.get('/:id', findStudentByIdController.handle);
 studentsRoutes.delete('/:id', deleteStudentController.handle);
